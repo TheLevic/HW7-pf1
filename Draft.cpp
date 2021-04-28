@@ -59,15 +59,17 @@ Draft::~Draft()
 //              team to which they were drafted.  Once a Player is drafted,
 //              the number of available Players should decrease
 //-------------------------------------------------------------------------
-/*void Draft::draftPlayer(const string teamName, const int playerIndex)
+void Draft::draftPlayer(const string teamName, const int playerIndex)
 {
     // Set the Player (at the provided index) as taken and set the team name to the drafting team
+    allPlayers[playerIndex - 1].setTeamName(teamName);
+    allPlayers[playerIndex - 1].setTaken();
 
     // Print out a message letting the user know that the Player has been drafted
-
+    cout << teamName << " has drafted " << allPlayers[playerIndex - 1].getFirstName() << " " << allPlayers[playerIndex - 1].getLastName();
     // decrease the number of available Players
-    
-}*/
+    numAvailable = numAvailable - 1;
+}
 
 //-------------------------------------------------------------------------
 // Name:        getNumPlayers (method f)
@@ -150,11 +152,8 @@ bool Draft::isValidPosition(const string position) const
         if (allPlayers[i].isTaken() == false && allPlayers[i].getPosition() == position){
             return true;
         }
-        else{
-            return false;
-        }
     }
-    return 0;
+    return false;
 }
 
 //-------------------------------------------------------------------------
@@ -165,18 +164,18 @@ bool Draft::isValidPosition(const string position) const
 // 		        Returns true if the name is found in the allPlayers array
 //		        Returns false if it is not found
 //-------------------------------------------------------------------------
-/*bool Draft::isValidName(const string lastName) const
+bool Draft::isValidName(const string lastName) const
 {
     // Create a variable to keep track of whether we have a valid name (start at false)
-
+    bool t_or_f = false;
     // loop through the allPlayers[] array
-
-        //If the lastName that is passed in matches the current Player's lastname,
-        //set your variable to true
-
-    // return your variable indicating whether there was a match
-    
-}*/
+    for (int i = 0; i < numPlayers; i++){
+        if (allPlayers[i].getLastName() == lastName){ //Checks to see if the input is equal to players last name
+            t_or_f = true;
+        }
+    }
+    return t_or_f;
+}
 
 //-------------------------------------------------------------------------
 // Name:        pickByName (method m)
@@ -184,7 +183,7 @@ bool Draft::isValidPosition(const string position) const
 // Returns:     nothing
 // Purpose:     Chooses Player based on given name
 //-------------------------------------------------------------------------
-/*void Draft::pickByName(const string teamName)
+void Draft::pickByName(const string teamName)
 {
     // Make sure there are still players available to draft.  If not, print a message
     // and don't try to get a player name
@@ -213,7 +212,7 @@ bool Draft::isValidPosition(const string position) const
 			// At this point, the outer loop should start again, asking for a valid player name
 			// and repeating
 
-}*/
+}
 
 //-------------------------------------------------------------------------
 // Name:        pickBestOverall (method o)
@@ -306,7 +305,7 @@ void Draft::printAvailablePositionPlayers(const string position) const
 {
     // Loop through the allPlayers[] array
     for (int i = 0; i < numPlayers; i++){
-        if (isValidPosition(position) == true){ //Checks to see if the position is valid or if the player is taken
+        if(!allPlayers[i].isTaken() && allPlayers[i].getPosition() == position){ //Checks to see if the position is valid or if the player is taken
             allPlayers[i].print(); // Prints the player if the conditions check out.
         }
     }

@@ -15,7 +15,7 @@ class Draft
 		Player allPlayers[MAX_PLAYERS];
 		
         /* helper function */
-        //void draftPlayer(const string teamName, const int playerIndex); //method k
+        void draftPlayer(const string teamName, const int playerIndex); //method k
 		
     public:
 		Draft(); //method a, given
@@ -29,8 +29,8 @@ class Draft
 		/* Useful Methods */
         void readFile(const string filename); //method e
         bool isValidPosition(const string position) const; //method i
-        //bool isValidName(const string name) const; //method l
-        //void pickByName(const string teamName); //method m
+        bool isValidName(const string name) const; //method l
+        void pickByName(const string teamName); //method m
         //void pickBestOverall(const string teamName); //method o
         //void pickBestByPosition(const string position, const string teamName); //method p
         
