@@ -102,8 +102,8 @@ void doAction(Draft &myDraft, const string teamName)
 				break;
 			case 5:
 				// pick best ranked player based on a certain position
-                //position = getPosition(myDraft);
-    			//myDraft.pickBestByPosition(position, teamName);
+                position = getPosition(myDraft);
+    			myDraft.pickBestByPosition(position, teamName);
 				picked = true;
 				break;
 			case 6:
@@ -143,7 +143,7 @@ int main()
 		cout << "\n=============== ROUND " << (currentRound+1) << " ===============\n";
 		doAction(NFLDraft, teamNames[0]); // Do the action for the users team 
 
-        /*
+        
         // This will be the last bit of code that you should uncomment!  You will
         // need to implement pickBestOverall(...) before uncommenting this loop
 		for(int otherTeam = 1; otherTeam < NUM_TEAMS; otherTeam++)
@@ -151,15 +151,15 @@ int main()
             // After you pick a Player, let the other teams pick the best overall available Player
 			NFLDraft.pickBestOverall(teamNames[otherTeam]); 
 		}
-		*/
+		
 	}
 
 	// PRINT RESULTS --------------------------------------------------------------------
 	cout << "\n\nDRAFT PICKING FOR 2021 IS OVER. HERE ARE THE PLAYERS ADDED TO YOUR TEAM: \n";
-	//NFLDraft.printTeamPlayers(teamNames[0]);
+	NFLDraft.printTeamPlayers(teamNames[0]);
 
     //Show how many players are remaining after all of the draft picks
-    //cout << "\n\nAfter all teams have made their choices, there are " << NFLDraft.getNumAvailable() << " players remaining.\n";
+    cout << "\n\nAfter all teams have made their choices, there are " << NFLDraft.getNumAvailable() << " players remaining.\n";
 	
     // Print a parting message if desired
 

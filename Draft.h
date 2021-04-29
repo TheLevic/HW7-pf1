@@ -32,7 +32,7 @@ class Draft
         bool isValidName(const string name) const; //method l
         void pickByName(const string teamName); //method m
         void pickBestOverall(const string teamName); //method o
-        //void pickBestByPosition(const string position, const string teamName); //method p
+        void pickBestByPosition(const string position, const string teamName); //method p
         
 		/* Print methods */
 		void printAllPlayers() const; //method d, given

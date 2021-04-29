@@ -246,7 +246,8 @@ void Draft::pickBestOverall(const string teamName)
     }
 	allPlayers[bestIndex].setTeamName(teamName);
     allPlayers[bestIndex].setTaken();
-    cout << allPlayers[bestIndex].getFirstName() << " " << allPlayers[bestIndex].getLastName() << " has been drafted to the " << teamName << "."; 
+    cout << allPlayers[bestIndex].getFirstName() << " " << allPlayers[bestIndex].getLastName() << " has been drafted to the " << teamName << "." << endl; 
+    numAvailable = numAvailable - 1;
 }
 
 //-------------------------------------------------------------------------
@@ -258,19 +259,24 @@ void Draft::pickBestOverall(const string teamName)
 //              positionRank value to the team whose name is passed in
 //          Note: a smaller value is better (i.e. a positionRank of 1 is best)
 //-------------------------------------------------------------------------
-/*void Draft::pickBestByPosition(const string position, const string teamName) 
+void Draft::pickBestByPosition(const string position, const string teamName) 
 {
     // Create some variables to keep track of the position rank and position index
-
+    int posrank = numPlayers;
+    int posindex = numPlayers;
 	// loop over all players to find the lowest position rank
-	// and the index of the player with the lowest position rank
-	// Make sure the Player has not already been drafted/taken and that they are
-	// playing the position we are searching for
-	
+    for (int i = 0; i < numPlayers; i++){
+        if (allPlayers[i].getPositionRank() < posrank && allPlayers[i].getPosition() == position && allPlayers[i].isTaken() == false){ //Checks to see if players rank is lower, and if the position matches, and that they are not taken
+            posrank = allPlayers[i].getPositionRank(); //If conditions are met the lowest rank so far is set
+            posindex = i; //If conditions are met the index is stored
+        }
+    }
+    // Drafting player using logged index and teamName parameter
+    allPlayers[posindex].setTaken();
+    allPlayers[posindex].setTeamName(teamName);
 
-    // Finally, draft the player using the index and the given teamName
-
-}*/
+    cout << allPlayers[posindex].getFirstName() << " " << allPlayers[posindex].getLastName() << " has been drafted to " << teamName << "." << endl;
+}
 
 //-------------------------------------------------------------------------
 // Name:        printAllPlayers (method d)
