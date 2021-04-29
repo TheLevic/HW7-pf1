@@ -97,7 +97,7 @@ void doAction(Draft &myDraft, const string teamName)
 				break;
 			case 4:
 				// pick best overall ranked player
-				//myDraft.pickBestOverall(teamName);
+				myDraft.pickBestOverall(teamName);
 				picked = true;
 				break;
 			case 5:

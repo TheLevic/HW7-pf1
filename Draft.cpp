@@ -232,19 +232,22 @@ void Draft::pickByName(const string teamName)
 //              whose name is passed in
 //          Note: a smaller value is better (i.e. an overallRank of 1 is best)
 //-------------------------------------------------------------------------
-/*void Draft::pickBestOverall(const string teamName) 
+void Draft::pickBestOverall(const string teamName) 
 {
     // Create some variables to keep track of the best index and best rank found so far
-
+    int bestIndex = numPlayers;
+    int bestRank = numPlayers;
 	// loop over all players to find the lowest overall rank
-	// and the index of the player with the lowest overall rank
-	// Make sure the Player has not already been drafted/taken
-
-
-
-    // Draft the player using the index and the given teamName
-
-}*/
+    for (int i = 0; i < numPlayers; i++){
+        if (allPlayers[i].getOverallRank() < bestRank && allPlayers[i].isTaken() == false){ //Checks to see if the players rank is the lowest and if they are available.
+            bestRank = allPlayers[i].getOverallRank();
+            bestIndex = i;
+        }
+    }
+	allPlayers[bestIndex].setTeamName(teamName);
+    allPlayers[bestIndex].setTaken();
+    cout << allPlayers[bestIndex].getFirstName() << " " << allPlayers[bestIndex].getLastName() << " has been drafted to the " << teamName << "."; 
+}
 
 //-------------------------------------------------------------------------
 // Name:        pickBestByPosition (method p)
