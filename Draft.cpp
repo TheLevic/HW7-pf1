@@ -187,30 +187,40 @@ void Draft::pickByName(const string teamName)
 {
     // Make sure there are still players available to draft.  If not, print a message
     // and don't try to get a player name
-
-
-        // Create variables to keep track of the user input, and whether the
-        // user input is valid (both in terms of a valid name AND an available Player)
-
-    	// (outer) Loop until a valid AND available Player name is given
-
-    	    // Check for valid name
-			// Ask the user to input the last name and validate it
-			// If it is an invalid name, continue asking for more input
-
-
-            // Once you have a valid name, find that Player's index in the allPlayers[] array
-
-
-            // Check for available Player (is he already drafted/taken?)
-            // If not drafted/taken, draft that Player (at that found index) to the 
-            // given team name and note that you have a valid AND available Player name 
-            // and should stop the outer loop after this bit of code
-
-
-			// else, if the Player IS taken, output a statement that the Player is already taken.
-			// At this point, the outer loop should start again, asking for a valid player name
-			// and repeating
+    if (numAvailable == 0){
+        cout << "I'm sorry, there are no more players available." << endl;
+    }
+    else{
+        string lname; //Creating a user input variable to allow them to select a player
+        int index = 0;
+        bool name_v_or_inv = false; //Bool to check whether or not the input from the user is valid or invalid
+        bool taken = true;
+        
+        do { //Using a do while because I want this to execute at least once
+            cout << "Please enter the last name of the player you want for your team." << endl;
+            cin >> lname;
+            for (int i = 0; i < numPlayers; i++){
+                if (lname == allPlayers[i].getLastName()){ //Runs if name is valid
+                    name_v_or_inv = true; //Satisfies first condition to break the loop
+                    if (allPlayers[i].isTaken() == false){
+                        index = i; //Gets player index
+                        taken = false;//Breaks loop because player name matches and they are not taken.
+                    }
+                }
+            }
+            if (name_v_or_inv == false){ //If inputted name didn't match
+                cout << "Invalid last name. Please try again." << endl;
+            }
+            else if (taken == true){ //If the player had already been drafted.
+                cout << "Player has already been drafted. Please try again." << endl;
+            }
+        } while (name_v_or_inv == false || taken == true);
+        
+        //Drafting player to team
+        cout << allPlayers[index].getFirstName() << " " << allPlayers[index].getLastName() << " has been drafted to the " << teamName << "." << endl;
+        allPlayers[index].setTeamName(teamName);
+        allPlayers[index].setTaken();
+    }
 
 }
 
@@ -318,11 +328,12 @@ void Draft::printAvailablePositionPlayers(const string position) const
 // Returns:     nothing
 // Purpose:     Prints the roster of Players in a given teamName.
 //-------------------------------------------------------------------------
-/*void Draft::printTeamPlayers(const string teamName) const
+void Draft::printTeamPlayers(const string teamName) const
 {
     // Loop through the allPlayers[] array
-
-        // Print all Players who match the given teamName
-
-
-}*/
+    for (int i = 0; i < numPlayers; i++){
+        if (allPlayers[i].getTeamName() == teamName){ //Checks to see if they are on the given teamName
+            allPlayers[i].print(); //Prints player names if they are on our team.
+        }
+    }
+}

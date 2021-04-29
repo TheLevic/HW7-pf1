@@ -92,7 +92,7 @@ void doAction(Draft &myDraft, const string teamName)
 				break;
 			case 3:
 				// pick by player name
-				//myDraft.pickByName(teamName);
+				myDraft.pickByName(teamName);
 				picked = true;
 				break;
 			case 4:
